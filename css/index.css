@@ -194,11 +194,30 @@
 
 
 .offcanvas-body .nav-link{
+    border: none;
+    padding: 1rem;
+    border-radius: 15px;
+    margin-bottom: 5px;
+    
+}
+.offcanvas-body .align-items-center{
+    border: none;
+    padding: 1rem;
+    border-radius: 15px;
+    margin-bottom: 5px;
+}
+.offcanvas-body .nav-link:hover{
     border: 2px solid #333;
     padding: 1rem;
     border-radius: 15px;
     margin-bottom: 5px;
     
+}
+.offcanvas-body .align-items-center:hover{
+    border: 2px solid #333;
+    padding: 1rem;
+    border-radius: 15px;
+    margin-bottom: 5px;
 }
 @media (max-width: 576px) {
     .logo h1 {
