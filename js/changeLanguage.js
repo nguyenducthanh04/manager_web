@@ -118,27 +118,23 @@ const translations = {
   },
 };
 
-// Function to change language
-function changeLanguage(lang) {
-  const elements = document.querySelectorAll("[data-key]");
-  elements.forEach((element) => {
-    const key = element.getAttribute("data-key");
-    element.textContent = translations[lang][key];
-      element.classList.add('fade-in');
-  });
+   // Function to change language
+    function changeLanguage(lang) {
+      const loading = document.querySelector('.loading');
+      loading.style.display = 'block';
+      
+      setTimeout(() => {
+        const elements = document.querySelectorAll('[data-key]');
+        elements.forEach(element => {
+          const key = element.getAttribute('data-key');
+          element.textContent = translations[lang][key];
+          element.classList.add('animate__fadeIn');
+        });
 
-  // Handle placeholder separately
-  const placeholderElements = document.querySelectorAll(
-    "[data-key-placeholder]"
-  );
-  placeholderElements.forEach((element) => {
-    const key = element.getAttribute("data-key-placeholder");
-    element.placeholder = translations[lang][key];
-        element.classList.add('fade-in');
-  });
-
-  localStorage.setItem("language", lang);
-}
+        loading.style.display = 'none';
+        localStorage.setItem('language', lang);
+      }, 500);
+    }
 
 // Load saved language and set up event listeners
 document.addEventListener("DOMContentLoaded", () => {

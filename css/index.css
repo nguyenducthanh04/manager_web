@@ -13,7 +13,7 @@
 }
 
 [data-bs-theme="dark"] .header {
-    background: #444;
+    background: #1e1e1e;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
@@ -193,27 +193,15 @@
 }
 
 
-.offcanvas-body .nav-link{
-    border: none;
-    padding: 1rem;
-    border-radius: 15px;
-    margin-bottom: 5px;
-    
-}
-.offcanvas-body .align-items-center{
+
+.menuList{
     border: none;
     padding: 1rem;
     border-radius: 15px;
     margin-bottom: 5px;
 }
-.offcanvas-body .nav-link:hover{
-    border: 2px solid #333;
-    padding: 1rem;
-    border-radius: 15px;
-    margin-bottom: 5px;
-    
-}
-.offcanvas-body .align-items-center:hover{
+
+.menuList:hover{
     border: 2px solid #333;
     padding: 1rem;
     border-radius: 15px;

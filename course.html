@@ -139,11 +139,44 @@
   </div>
 </header>
 
-<!-- Section danh sách khóa học đã đăng ký -->
 <section class="registered-courses-section">
-    <div class="container">
-        <h2 class="text-center mb-4 mt-4">Danh Sách Khóa Học Đã Đăng Ký</h2>
-        <div id="registeredCourses" class="list-group"></div>
+    <div class="container mt-5">
+        <h3 class="text-center mb-4">Danh sách khóa học đã đăng ký</h3>
+        <div id="registeredCourses" class="list-group">
+            <p class="text-center text-muted">Bạn chưa đăng ký khóa học nào.</p>
+
+            <!-- Ví dụ khóa học 1 -->
+            <div class="list-group-item d-flex justify-content-between align-items-center animate__animated animate__fadeIn">
+                <div class="d-flex align-items-center">
+                    <img src="https://via.placeholder.com/50" alt="Khóa học JavaScript" style="width: 50px; height: 50px; object-fit: cover; margin-right: 15px;">
+                    <div>
+                        <h6 class="mb-1">Khóa học JavaScript</h6>
+                        <p class="mb-0">2,500,000 VNĐ</p>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-info btn-view-details" onclick="viewCourse(1)">
+                        <i class="fas fa-eye"></i> Xem chi tiết
+                    </button>
+                </div>
+            </div>
+
+            <!-- Ví dụ khóa học 2 -->
+            <div class="list-group-item d-flex justify-content-between align-items-center animate__animated animate__fadeIn">
+                <div class="d-flex align-items-center">
+                    <img src="https://via.placeholder.com/50" alt="Khóa học Python" style="width: 50px; height: 50px; object-fit: cover; margin-right: 15px;">
+                    <div>
+                        <h6 class="mb-1">Khóa học Python</h6>
+                        <p class="mb-0">3,000,000 VNĐ</p>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-danger btn-sm" onclick="removeFromRegisteredCourses(2)">
+                        <i class="bi bi-trash"></i> Xóa
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Modal xem chi tiết khóa học -->
