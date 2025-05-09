@@ -1,0 +1,234 @@
+:root {
+    --xanh: #20409a;
+    --cam: #f37423;
+    --trang: #ffffff;
+    --den: #333;
+    --xam: #f8f9fa;
+}
+
+.header {
+    background: var(--trang);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease;
+}
+
+[data-bs-theme="dark"] .header {
+    background: #444;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.logo h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--cam);
+    margin: 0;
+    transition: color 0.3s ease;
+}
+.logo{
+    text-decoration: none;
+}
+
+[data-bs-theme="dark"] .logo h1 {
+    color: #f38744;
+}
+
+.navbar-toggler {
+    border: none;
+    font-size: 1.5rem;
+    color: var(--den);
+    transition: color 0.3s ease;
+}
+
+[data-bs-theme="dark"] .navbar-toggler {
+    color: #e8e8e8;
+}
+
+.navbar-toggler:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.navmenu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.navmenu a {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--den);
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.2s ease;
+
+}
+
+[data-bs-theme="dark"] .navmenu a {
+    color: #e8e8e8;
+}
+
+.navmenu a:hover,
+.navmenu a.active {
+    color: var(--cam);
+    transform: scale(1.05);
+}
+
+.social-links a,
+.social-links button {
+    margin-left: 15px;
+    font-size: 1.2rem;
+    color: var(--xanh);
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+[data-bs-theme="dark"] .social-links a,
+[data-bs-theme="dark"] .social-links button {
+    color: #e8e8e8;
+}
+
+.social-links a:hover,
+.social-links button:hover {
+    color: var(--cam);
+    transform: scale(1.1);
+}
+
+.social-links .badge {
+    background: var(--cam);
+    font-size: 0.7rem;
+    padding: 4px 8px;
+}
+
+[data-bs-theme="dark"] .social-links .badge {
+    background: #f58f4e; 
+}
+
+#themeToggle,
+#themeToggleOffcanvas {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: 1px solid var(--cam);
+    color: var(--xanh);
+    transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+[data-bs-theme="dark"] #themeToggle,
+[data-bs-theme="dark"] #themeToggleOffcanvas {
+    background: #555;
+    border-color: #20409a;
+    color: #f58f4e;
+}
+    
+#themeToggle:hover,
+#themeToggleOffcanvas:hover {
+    color: var(--cam);
+    transform: scale(1.05);
+    border: 1px solid var(--xanh);
+}
+
+.offcanvas-start {
+    background: var(--trang);
+    border-radius: 0 12px 12px 0;
+}
+
+[data-bs-theme="dark"] .offcanvas-start {
+    background: #444;
+}
+
+.offcanvas-header {
+    background: linear-gradient(90deg, var(--xanh), #6f42c1);
+    color: var(--trang);
+    padding: 1.25rem;
+}
+
+.offcanvas-header h5 {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.offcanvas-header .btn-close {
+    filter: invert(1);
+}
+
+.social-links-offcanvas a,
+.social-links-offcanvas span {
+    font-size: 1rem;
+    color: var(--den);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+[data-bs-theme="dark"] .social-links-offcanvas a,
+[data-bs-theme="dark"] .social-links-offcanvas span {
+    color: #e8e8e8;
+}
+
+.social-links-offcanvas a:hover {
+    color: var(--xanh);
+}
+
+.social-links-offcanvas .badge {
+    background: var(--cam);
+    font-size: 0.7rem;
+    padding: 4px 8px;
+}
+
+[data-bs-theme="dark"] .social-links-offcanvas .badge {
+    background: #f58f4e;
+}
+.container .text-center{
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--xanh);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+
+.offcanvas-body .nav-link{
+    border: 2px solid #333;
+    padding: 1rem;
+    border-radius: 15px;
+    margin-bottom: 5px;
+    
+}
+@media (max-width: 576px) {
+    .logo h1 {
+        font-size: 1.5rem;
+    }
+
+    .navmenu ul {
+        gap: 10px;
+    }
+
+    .social-links a,
+    .social-links button {
+        margin-left: 10px;
+        font-size: 1rem;
+    }
+
+    #themeToggle,
+    #themeToggleOffcanvas {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+    }
+
+    .offcanvas-header h5 {
+        font-size: 1.2rem;
+    }
+
+    .social-links-offcanvas a,
+    .social-links-offcanvas span {
+        font-size: 0.9rem;
+    }
+}
+
+

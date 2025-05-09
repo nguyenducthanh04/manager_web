@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="vi" data-bs-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản Lý Khóa Học</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome cho biểu tượng -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/manage.css">
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/custom-animation.css">
+
+</head>
+
+<body>
+  <header id="header" class="header sticky-top py-3">
+  <div class="container position-relative d-flex align-items-center justify-content-between">
+    <a href="index.html" class="logo">
+      <h1 class="sitename" data-key="sitename">CNTT 16-05</h1>
+    </a>
+
+    <!-- Nút hamburger menu cho màn hình nhỏ -->
+    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas"
+      data-bs-target="#navbarOffcanvas" aria-controls="navbarOffcanvas" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <i class="bi bi-list"></i>
+    </button>
+
+    <!-- Menu điều hướng chính (hiển thị trên màn hình lớn) -->
+    <nav id="navmenu" class="navmenu d-none d-lg-block">
+      <ul>
+        <li><a href="index.html"  data-key="home">Trang chủ</a></li>
+        <li><a href="manage.html" class="active" data-key="manage">Quản lý khóa học</a></li>
+      </ul>
+    </nav>
+
+    <!-- Social links (hiển thị trên màn hình lớn) -->
+    <div class="social-links d-none d-lg-flex align-items-center">
+      <div class="language-toggle me-3">
+        <img src="https://flagcdn.com/24x18/vn.png" alt="Vietnamese" class="flag" data-lang="vi">
+        <img src="https://flagcdn.com/24x18/gb.png" alt="English" class="flag" data-lang="en">
+      </div>
+      <a href="auth.html" class="user-icon me-2" title="Đăng nhập/Đăng ký"><i class="bi bi-person"></i></a>
+      <a id="btnLogout" style="cursor: pointer; display: none" data-key="logout">Đăng xuất</a>
+      <button class="btn btn-outline-secondary ms-2" id="themeToggle"
+        onclick="toggleTheme()">
+        <i class="fas fa-moon"></i> <span data-key="theme">Dark Mode</span>
+      </button>
+    </div>
+
+    <!-- Offcanvas menu cho màn hình nhỏ -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="navbarOffcanvas" aria-labelledby="navbarOffcanvasLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="navbarOffcanvasLabel" data-key="menu">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <!-- Menu điều hướng -->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html" data-key="home">Trang chủ</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="manage.html" data-key="manage">Quản lý khóa học</a>
+          </li>
+        </ul>
+        <!-- Social links trong Offcanvas -->
+        <div class="social-links-offcanvas mt-4">
+          <div class="language-toggle mb-3">
+            <img src="https://flagcdn.com/24x18/vn.png" alt="Vietnamese" class="flag" data-lang="vi">
+            <img src="https://flagcdn.com/24x18/gb.png" alt="English" class="flag" data-lang="en">
+          </div>
+
+          <div class="d-flex align-items-center mb-2">
+            <a href="auth.html" class="user-icon me-3"><i class="bi bi-person"></i>
+              <span data-key="login">Đăng nhập/Đăng ký</span></a>
+          </div>
+          <div class="d-flex align-items-center mb-2" id="btnLogoutOffcanvas" style="display: none">
+            <a class="me-3" style="cursor: pointer"><i class="bi bi-box-arrow-right"></i>
+              <span data-key="logout">Đăng xuất</span></a>
+          </div>
+          <button class="btn btn-outline-secondary" id="themeToggleOffcanvas"
+            onclick="toggleTheme()">
+            <i class="fas fa-moon"></i> <span data-key="theme">Dark Mode</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Container chính -->
+<div class="container mt-4">
+      <h2 class="text-center mb-4 fw-bolder" data-key="manage">Quản Lý Khóa Học</h2>
+  <div class="course-container slide-in-up">
+    <!-- Tìm kiếm, nút thêm và nút chuyển đổi -->
+    <div class="d-flex justify-content-between mb-3 align-items-center">
+      <div class="input-group" style="max-width: 300px">
+        <span class="input-group-text"><i class="fas fa-search"></i></span>
+        <input type="text" class="form-control" id="searchInput" data-key-placeholder="searchPlaceholder" placeholder="Tìm kiếm sản phẩm..." />
+      </div>
+      <div class="d-flex align-items-center gap-2 flex-wrap">
+        <button class="btn btn-outline-primary" onclick="toggleView('table')" data-key="tableView">
+          <i class="fas fa-table"></i> Dạng Bảng
+        </button>
+        <button class="btn btn-outline-primary" onclick="toggleView('grid')" data-key="gridView">
+          <i class="fas fa-th"></i> Dạng Lưới
+        </button>
+        <select id="sortSelect" onchange="sortCourses()">
+          <option value="name_asc" data-key="sortNameAsc">Tên (A-Z)</option>
+          <option value="name_desc" data-key="sortNameDesc">Tên (Z-A)</option>
+          <option value="price_asc" data-key="sortPriceAsc">Giá (Tăng dần)</option>
+          <option value="price_desc" data-key="sortPriceDesc">Giá (Giảm dần)</option>
+        </select>
+        <button class="btn btn-accent" onclick="openAddCourseModal()" data-key="addCourse">
+          <i class="fas fa-plus me-1"></i> Thêm khoá học
+        </button>
+      </div>
+    </div>
+    <!-- Bảng khóa học (Table View) -->
+    <div class="table-responsive" id="tableView">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th data-key="courseName">Tên khóa học</th>
+            <th data-key="instructor">Giảng viên</th>
+            <th data-key="price">Giá tiền</th>
+            <th data-key="image">Hình ảnh</th>
+            <th data-key="actions">Thao tác</th>
+          </tr>
+        </thead>
+        <tbody id="courseTableBody">
+          <!-- Dữ liệu sẽ được render từ API -->
+        </tbody>
+      </table>
+    </div>
+    <!-- Lưới khóa học (Grid View) -->
+    <div class="row" id="gridView" style="display: none"></div>
+  </div>
+</div>
+
+<!-- Modal thêm khóa học -->
+<div class="modal fade" id="addCourseModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" data-key="addCourseTitle">Thêm Khóa Học</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="addCourseName" class="form-label" data-key="courseNameLabel">Tên khóa học</label>
+          <input type="text" class="form-control" id="addCourseName" />
+          <div class="text-danger small mt-1" id="addCourseNameError" style="display: none" data-key="courseNameError">
+            Vui lòng nhập tên!
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="addCourseInstructor" class="form-label" data-key="instructorLabel">Giảng viên</label>
+          <input type="text" class="form-control" id="addCourseInstructor" />
+          <div class="text-danger small mt-1" id="addCourseInstructorError" style="display: none" data-key="instructorError">
+            Vui lòng nhập giảng viên!
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="addCoursePrice" class="form-label" data-key="priceLabel">Giá tiền</label>
+          <input type="number" class="form-control" id="addCoursePrice" />
+          <div class="text-danger small mt-1" id="addCoursePriceError" style="display: none" data-key="priceError">
+            Vui lòng nhập giá!
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="addCourseImage" class="form-label" data-key="imageLabel">Hình ảnh (URL)</label>
+          <input type="url" class="form-control" id="addCourseImage" />
+          <div class="text-danger small mt-1" id="addCourseImageError" style="display: none" data-key="imageError">
+            Vui lòng nhập URL!
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-key="close">Đóng</button>
+        <button type="button" class="btn btn-accent" id="addCourseBtn" onclick="handleAddCourse()">
+          <span data-key="add">Thêm</span>
+          <div class="spinner-border spinner-border-sm spinner d-none" role="status" ></div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal sửa khóa học -->
+<div class="modal fade" id="editCourseModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" data-key="editCourseTitle">Sửa Khóa Học</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editCourseId" />
+        <div class="mb-3">
+          <label for="editCourseName" class="form-label" data-key="courseNameLabel">Tên khóa học</label>
+          <input type="text" class="form-control" id="editCourseName" />
+          <div class="text-danger small mt-1" id="editCourseNameError" style="display: none" data-key="courseNameError">
+            Vui lòng nhập tên!
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="editCourseInstructor" class="form-label" data-key="instructorLabel">Giảng viên</label>
+          <input type="text" class="form-control" id="editCourseInstructor" />
+          <div class="text-danger small mt-1" id="editCourseInstructorError" style="display: none" data-key="instructorError">
+            Vui lòng nhập giảng viên!
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="editCoursePrice" class="form-label" data-key="priceLabel">Giá tiền</label>
+          <input type="number" class="form-control" id="editCoursePrice" />
+          <div class="text-danger small mt-1" id="editCoursePriceError" style="display: none" data-key="priceError">
+            Vui lòng nhập giá!
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="editCourseImage" class="form-label" data-key="imageLabel">Hình ảnh (URL)</label>
+          <input type="url" class="form-control" id="editCourseImage" />
+          <div class="text-danger small mt-1" id="editCourseImageError" style="display: none" data-key="imageError">
+            Vui lòng nhập URL!
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-key="close">Đóng</button>
+        <button type="button" class="btn btn-accent" id="editCourseBtn" onclick="handleEditCourse()">
+          <span data-key="save">Lưu</span>
+          <div class="spinner-border spinner-border-sm spinner" role="status"></div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal xem chi tiết -->
+<div class="modal fade" id="viewCourseModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" data-key="viewCourseTitle">Chi Tiết Khóa Học</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          <strong data-key="courseNameLabel">Tên khóa học:</strong> <span id="viewCourseName"></span>
+        </p>
+        <p>
+          <strong data-key="instructorLabel">Giảng viên:</strong>
+          <span id="viewCourseInstructor"></span>
+        </p>
+        <p><strong data-key="priceLabel">Giá tiền:</strong> <span id="viewCoursePrice"></span></p>
+        <p><strong data-key="imageLabel">Hình ảnh:</strong></p>
+        <img id="viewCourseImage" class="img-fluid rounded" alt="Hình khóa học" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-key="close">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 10000">
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto" id="toastTitle" data-key="toastTitle">Thông báo</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body" id="toastMessage"></div>
+  </div>
+</div>
+
+  <!-- Scripts -->
+   <script src="js/toast.js"></script>
+   <script src="js/manager.js"></script>
+   <script src="js/changeLanguage.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.9.0/axios.min.js"></script>
+</body>
+
+</html>

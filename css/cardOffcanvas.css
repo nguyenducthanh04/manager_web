@@ -1,0 +1,361 @@
+:root {
+    --xanh: #20409a;
+    --cam: #f37423;
+    --trang: #ffffff;
+    --den: #333;
+    --xam: #f8f9fa;
+}
+
+
+.product-courses-section .text-center {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--xanh);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+[data-bs-theme="dark"] .product-courses-section .text-center {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color:#4879ff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.offcanvas-end {
+    width: 100% !important;
+    max-width: 500px;
+    min-width: 300px;
+}
+
+[data-bs-theme="dark"] .offcanvas-end {
+    background: #555;
+}
+
+.offcanvas-header {
+    background: linear-gradient(90deg, var(--xanh), #6f42c1);
+    color: var(--trang);
+}
+
+.offcanvas-body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.course-card {
+    background-color: var(--trang);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+[data-bs-theme="dark"] .course-card {
+    background-color: #555;
+}
+
+.course-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.course-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.course-card:hover img {
+    transform: scale(1.05);
+}
+
+.course-card h5 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 15px 15px 5px;
+    color: var(--den);
+}
+
+[data-bs-theme="dark"] .course-card h5 {
+    color: #e8e8e8;
+}
+
+.course-card p {
+    margin: 0 15px 10px;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+[data-bs-theme="dark"] .course-card p {
+    color: #ccc;
+}
+
+.course-card .btn-register {
+    display: block;
+    margin: 0 auto 15px;
+    padding: 10px 20px;
+    background-color: var(--xanh);
+    color: var(--trang);
+    border: none;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.course-card .btn-register:hover {
+    background-color: var(--cam) ;
+    transform: scale(1.05);
+}
+
+.course-card .registered-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--cam);
+    color: var(--trang);
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: var(--trang);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+[data-bs-theme="dark"] .cart-item {
+    background-color: #444;
+}
+
+.cart-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cart-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 15px;
+    transition: transform 0.3s ease;
+}
+
+.cart-item:hover img {
+    transform: scale(1.1);
+}
+
+.cart-item .item-details {
+    flex-grow: 1;
+}
+
+.cart-item .item-details h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--den);
+    margin-bottom: 5px;
+}
+
+[data-bs-theme="dark"] .cart-item .item-details h6 {
+    color: #e8e8e8;
+}
+
+.cart-item .item-details p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--cam);
+    margin: 0;
+}
+
+[data-bs-theme="dark"] .cart-item .item-details p {
+    color: #f58f4e; 
+}
+
+.cart-item .quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cart-item .quantity-controls button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cart-item .quantity-controls .btn-outline-secondary {
+    background-color: var(--xam);
+    border: none;
+    color: var(--den);
+}
+
+.cart-item .quantity-controls .btn-outline-secondary:hover:not(:disabled) {
+    background-color: #e9ecef;
+    transform: scale(1.1);
+}
+
+.cart-item .quantity-controls .btn-danger {
+    background-color: var(--cam);
+    border: none;
+}
+
+.cart-item .quantity-controls .btn-danger:hover:not(:disabled) {
+    background-color: #d9641f; /* Tối hơn var(--cam) */
+    transform: scale(1.1);
+}
+
+.cart-item .quantity-controls span {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--den);
+    min-width: 30px;
+    text-align: center;
+}
+
+[data-bs-theme="dark"] .cart-item .quantity-controls span {
+    color: #e8e8e8;
+}
+
+.cart-footer {
+    position: sticky;
+    bottom: 0;
+    background: var(--trang);
+    text-align: center;
+    padding: 1.5rem 1rem;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+[data-bs-theme="dark"] .cart-footer {
+    background: #555;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.cart-footer h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--den);
+    margin-bottom: 20px;
+}
+
+[data-bs-theme="dark"] .cart-footer h6 {
+    color: #e8e8e8;
+}
+
+.cart-footer h6 span {
+    color: var(--cam);
+}
+
+[data-bs-theme="dark"] .cart-footer h6 span {
+    color: #f58f4e; /* Sáng hơn var(--cam) */
+}
+
+.cart-footer button {
+    padding: 12px 30px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    border-radius: 25px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 45%;
+    margin: 0 5px;
+}
+
+.cart-footer .btn-danger {
+    background-color: var(--cam);
+    border: none;
+}
+
+.cart-footer .btn-danger:hover:not(:disabled) {
+    background-color: #d9641f;
+    transform: scale(1.05);
+}
+
+.cart-footer .btn-primary {
+    background-color: var(--xanh);
+    border: none;
+}
+
+.cart-footer .btn-primary:hover:not(:disabled) {
+    background-color: #1a347f;
+    transform: scale(1.05);
+}
+
+.cart-empty {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--xam);
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    color: #666;
+}
+
+[data-bs-theme="dark"] .cart-empty {
+    background-color: #555;
+    color: #ccc;
+}
+
+@media (max-width: 576px) {
+    .course-card h5 {
+        font-size: 1.1rem;
+    }
+
+    .course-card p {
+        font-size: 0.9rem;
+    }
+
+    .course-card .btn-register {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .cart-item img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .cart-item .item-details h6 {
+        font-size: 1rem;
+    }
+
+    .cart-item .item-details p {
+        font-size: 0.9rem;
+    }
+
+    .cart-item .quantity-controls {
+        margin-top: 10px;
+    }
+
+    .cart-footer button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .offcanvas-end {
+        width: 100% !important;
+    }
+}

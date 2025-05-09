@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="vi" data-bs-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý khoá học</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome cho biểu tượng -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Custom animations -->
+    <link rel="stylesheet" href="custom-animation.css" />
+    <style>
+      :root {
+        --primary-color: #20409a;
+        --accent-color: #f37423;
+        --white: #ffffff;
+        --dark-gray: #333;
+        --light-gray: #f8f9fa;
+      }
+
+      body {
+        background-color: var(--white);
+        font-family: "Arial", sans-serif;
+        min-height: 100vh;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      header {
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+      }
+
+      .sitename {
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        font-weight: 700;
+      }
+
+      .navmenu ul {
+        display: flex;
+        gap: 20px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .navmenu a {
+        text-decoration: none;
+        color: var(--dark-gray);
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      [data-bs-theme="dark"] .navmenu a {
+        color: var(--white);
+      }
+
+      [data-bs-theme="dark"] .navmenu a:hover,
+      .navmenu a.active {
+        color: var(--accent-color);
+      }
+
+      [data-bs-theme="dark"] .social-links {
+      }
+
+      .social-links {
+        gap: 20px;
+        align-items: center;
+      }
+
+      .social-links a {
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+        gap: 15px;
+      }
+
+      .social-links a:hover {
+        color: var(--accent-color);
+      }
+
+      .btn-accent {
+        background-color: var(--accent-color);
+        color: var(--white);
+        transition: all 0.3s ease;
+      }
+
+      .btn-accent:hover {
+        background-color: var(--primary-color);
+        transform: translateY(-2px);
+        color: #ffffff;
+      }
+
+      .table th {
+        background-color: var(--accent-color);
+        color: var(--white);
+      }
+
+      .table td img {
+        max-width: 50px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+      }
+
+      .table td img:hover {
+        transform: scale(1.2);
+      }
+
+      #sortSelect {
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: 1px solid var(--primary-color);
+      }
+
+      #sortSelect:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      #sortSelect:hover {
+        background-color: var(--primary-color);
+        color: white;
+      }
+
+      #gridView .card {
+        margin-bottom: 20px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      #gridView .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      #gridView .card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.4),
+          transparent
+        );
+        transition: 0.5s;
+        pointer-events: none;
+      }
+
+      #gridView .card:hover::after {
+        left: 100%;
+      }
+
+      .card img {
+        height: 200px;
+        object-fit: cover;
+      }
+
+      #gridView .card-body {
+        text-align: center;
+      }
+
+      #gridView .btn-group {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+      }
+
+      .card:hover {
+        animation: glow 1.5s ease infinite;
+      }
+
+      @keyframes glow {
+        0% {
+          box-shadow: 0 0 5px var(--accent-color);
+        }
+
+        50% {
+          box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        100% {
+          box-shadow: 0 0 5px var(--accent-color);
+        }
+      }
+
+      .course-container h2 {
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-size: 2rem;
+        color: var(--primary-color);
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      [data-bs-theme="dark"] body {
+        background-color: #1a1a1a;
+        color: white;
+      }
+
+      [data-bs-theme="dark"] .header {
+        background-color: #1a1a1a;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      [data-bs-theme="dark"] .sitename {
+        color: var(--white);
+      }
+
+      [data-bs-theme="dark"] .course-container h2 {
+        color: white;
+      }
+
+      .input-group {
+  transition: box-shadow 0.3s ease;
+}
+/* Them hieu ung */
+.input-group:hover {
+  box-shadow: 0 0 10px rgba(32, 64, 154, 0.3);
+}
+
+.btn-outline-primary {
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* Hiệu ứng hover cho hàng bảng */
+.table-hover tbody tr {
+  transition: all 0.3s ease;
+  position: relative;
+  background-color: var(--white);
+}
+
+[data-bs-theme="dark"] .table-hover tbody tr {
+  background-color: #2c2c2c;
+}
+
+.table-hover tbody tr:hover {
+  background: linear-gradient(90deg, #f8f9fa, #e9ecef); /* Gradient nền */
+  transform: translateY(-3px); /* Nâng hàng lên */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Thêm bóng */
+  border-left: 4px solid var(--accent-color); /* Viền trái phát sáng */
+}
+
+[data-bs-theme="dark"] .table-hover tbody tr:hover {
+  background: linear-gradient(90deg, #2c2c2c, #3a3a3a);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  border-left: 4px solid var(--accent-color);
+}
+
+/* Hiệu ứng phát sáng viền */
+.table-hover tbody tr::before {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.table-hover tbody tr:hover::before {
+  opacity: 0.3; /* Hiển thị viền phát sáng */
+}
+
+/* Hiệu ứng cho nút thao tác */
+.table-hover tbody tr .btn {
+  transition: all 0.3s ease;
+}
+
+/* Hiệu ứng zoom ảnh */
+.table td img {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.table-hover tbody tr:hover td img {
+  transform: scale(1.5); /* Zoom lớn hơn */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Thêm bóng cho ảnh */
+}
+
+/* Hiệu ứng nhấp nháy nhẹ cho hàng khi hover */
+.table-hover tbody tr:hover {
+  animation: subtleGlow 1s ease infinite;
+}
+
+@keyframes subtleGlow {
+  0% { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
+  50% { box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3); }
+  100% { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
+}
+
+.product-card{
+    border: 1px solid var(--primary-color);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: var(--white);
+    position: relative;
+}
+[data-bs-theme="dark"] .product-card {
+  background: #2c2c2c;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.product-card:hover {
+  transform: translateY(-5px); /* Nâng card lên */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Tăng bóng */
+}
+.product-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(243, 116, 35, 0.3), transparent);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+
+.product-card:hover::after {
+  left: 100%; /* Hiệu ứng ánh sáng quét */
+}
+
+[data-bs-theme="dark"] .product-card::after {
+  background: linear-gradient(90deg, transparent, rgba(243, 116, 35, 0.2), transparent);
+}
+
+.product-card .card-img-top {
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .card-img-top {
+  transform: scale(1.1); /* Zoom ảnh khi hover */
+}
+
+.product-card .card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+[data-bs-theme="dark"] .product-card .card-title {
+  color: var(--accent-color);
+}
+
+.product-card .card-text {
+  margin-bottom: 0.5rem;
+}
+
+.product-card .btn-group {
+  gap: 5px;
+}
+
+.product-card .btn-outline-primary:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.product-card .btn-outline-warning:hover {
+  background-color: #ffca2c;
+  color: #fff;
+}
+
+.product-card .btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: #fff;
+}
+    </style>
+  </head>
+
+  <body>
+    <header id="header" class="header sticky-top py-3 fade-in">
+      <div
+        class="container position-relative d-flex align-items-center justify-content-between"
+      >
+        <a href="index.html" class="logo">
+          <h1 class="sitename">CNTT 16-05</h1>
+        </a>
+
+        <!-- Nút hamburger cho màn hình nhỏ -->
+        <button
+          class="navbar-toggler d-lg-none"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#navbarOffcanvas"
+          aria-controls="navbarOffcanvas"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="bi bi-list"></i>
+        </button>
+
+        <nav id="navmenu" class="navmenu d-none d-lg-block">
+          <ul>
+            <li><a href="index.html" class="active">Trang chủ</a></li>
+            <li><a href="manage.html">Quản lý sản phẩm</a></li>
+          </ul>
+        </nav>
+
+        <div class="social-links d-none d-lg-flex align-items-center">
+          <a
+            id="cartButton"
+            href="course.html"
+            class="position-relative fade-i"
+            onclick="openCart(event)"
+          >
+            <i class="bi bi-cart"></i>
+            <span
+              id="cartCount"
+              class="badge bg-danger rounded-pill position-absolute top-0 start-100 translate-middle"
+              >0
+            </span>
+          </a>
+          <a href="register.html" class="user-icon" title="Đăng nhập/Đăng ký">
+            <i class="bi bi-person"></i>
+          </a>
+          <button
+            class="btn btn-outline-secondary"
+            id="themeToggle"
+            onclick="toggleTheme()"
+          >
+            <i class="fas fa-moon"></i> <span>Darkmode</span>
+          </button>
+        </div>
+
+        <div
+          class="offcanvas offcanvas-start"
+          tabindex="-1"
+          id="navbarOffcanvas"
+          aria-labelledby="navbarOffcanvasLabel"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="navbarOffcanvasLabel">Menu</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-theme="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a href="index.html" class="nav-link">Trang chủ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="manage.html">Quản lý sản phẩm</a>
+              </li>
+            </ul>
+
+            <!-- Social links trong Offcanvas -->
+            <div class="social-links-offcanvas mt-4">
+              <div class="d-flex align-items-center mb-2">
+                <a
+                  href="cartButtonOffcanvas"
+                  class="position-relative me-3"
+                  onclick="openCart(event)"
+                  style="cursor: pointer"
+                  aria-label="Mở giỏ hàng"
+                >
+                  <i class="bi bi-cart"></i>
+                  <span
+                    id="cartCountOffcanvas"
+                    class="badge bg-danger rounded-pill position-absolute top-0 start-100 translate-middle"
+                    >0</span
+                  >
+                  <span>Giỏ hàng</span>
+                </a>
+              </div>
+              <div class="d-flex align-items-center mb-2">
+                <a href="register.html" class="user-icon me-3">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Đăng xuất</span></a
+                >
+              </div>
+              <button
+                class="btn btn-outline-secondary"
+                id="themeToggleOffcanvas"
+                onclick="toggleTheme()"
+              >
+                <i class="fas fa-moon"></i> <span>Dark Mode</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Container chính -->
+    <div class="container mt-5">
+      <div class="course-container">
+        <h2 class="text-center mb-4 fw-bolder">Quản Lý Khoá Học</h2>
+        <!-- Tìm kiếm, nút thêm và nút chuyển đổi -->
+        <div class="d-flex justify-content-between mb-3 align-items-center">
+          <div class="input-group" style="max-width: 300px">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+            <input
+              type="text"
+              class="form-control"
+              id="searchInput"
+              placeholder="Tìm kiếm sản phẩm"
+            />
+          </div>
+          <div class="d-flex align-items-center gap-2 flex-wrap">
+            <button
+              class="btn btn-outline-primary"
+              onclick="toggleView('table')"
+            >
+              <i class="fas fa-table"></i><span> Dạng Bảng</span>
+            </button>
+            <button
+              class="btn btn-outline-primary"
+              onclick="toggleView('grid')"
+            >
+              <i class="fas fa-th"></i><span> Dạng Lưới</span>
+            </button>
+            <select
+              name=""
+              id="sortSelect"
+              onchange="sortCourses()"
+              class="fade-in"
+            >
+              <option value="name_asc">A-Z</option>
+              <option value="name_desc">Z-A</option>
+              <option value="price_asc">Tăng</option>
+              <option value="price_desc">Giảm</option>
+            </select>
+            <button class="btn btn-accent" onclick="openAddCourseModal()">
+              <i class="fas fa-plus me-1"></i><span> Thêm khóa học</span>
+            </button>
+          </div>
+        </div>
+        <!-- Bảng khóa học (Table View) -->
+        <div class="table-responsive" id="tableView">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>Tên khóa học</th>
+                <th>Giảng viên</th>
+                <th>Giá tiền</th>
+                <th>Hình ảnh</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="courseTableBody">
+              <tr class="">
+                <td>csdfd</td>
+                <td>csdfd</td>
+                <td>csdfd</td>
+                <td>csdfd</td>
+                <td>
+                  <button
+                    class="btn btn-primary btn-sm me-1"
+                    onclick="viewCourse('${course.id}')"
+                  >
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button
+                    class="btn btn-warning btn-sm me-1"
+                    onclick="editCourse('${course.id}')"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button
+                    class="btn btn-danger btn-sm"
+                    onclick="deleteCourse('${course.id}')"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Lưới khóa học (Grid View) -->
+        <div class="row" id="gridView" >
+            <div class="col-md-3 col-sm-6 mb-4">
+              <div class="card product-card h-100 shadow-sm">
+                <img src="https://i.pinimg.com/736x/f9/7d/cc/f97dcc1f4c7d2e4ceb47b57dc13060c1.jpg" class="card-img-top" alt="Khóa học">
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title text-primary">Khóa Học Lập Trình Python</h5>
+                  <p class="card-text text-muted" style="white-space: nowrap;">Giảng viên: Nguyễn Văn A</p>
+                  <p class="card-text fw-bold">Giá: 1.500.000 VNĐ</p>
+                  <div>
+                    <p class="card-text small text-success mb-2">Đánh giá: ★★★★☆ (4.5/5)</p>
+                    <div class="btn-group w-100" role="group">
+                      <button class="btn btn-outline-primary btn-sm" onclick="viewCourse('1')">
+                        <i class="fas fa-eye"></i> Xem
+                      </button>
+                      <button class="btn btn-outline-warning btn-sm" onclick="editCourse('1')">
+                        <i class="fas fa-edit"></i> Sửa
+                      </button>
+                      <button class="btn btn-outline-danger btn-sm" onclick="deleteCourse('1')">
+                        <i class="fas fa-trash"></i> Xóa
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Thêm các card khác tương tự với dữ liệu từ API -->
+          </div>
+      </div>
+      <!-- Modal thêm khóa học -->
+      <div class="modal fade slide-in-right" id="addCourseModal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title fade-in">Thêm khóa học</h5>
+              <button
+                type="button"
+                class="btn-close fade-out"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div class="modal-body fade-in">
+              <div class="mb-3">
+                <label for="addCourseName" class="form-label"
+                  >Tên khóa học</label
+                >
+                <input type="text" class="form-control" id="addCourseName" />
+                <div
+                  class="text-danger small mt-1"
+                  id="addCourseNameError"
+                  style="display: none"
+                >
+                  Vui lòng nhập tên khóa học!
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="addCourseInstructor" class="form-label"
+                  >Tên giảng viên</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="addCourseInstructor"
+                />
+                <div
+                  class="text-danger small mt-1"
+                  id="addCourseInstructorError"
+                  style="display: none"
+                >
+                  Vui lòng nhập tên giảng viên!
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="addCoursePrice" class="form-label">Giá tiền</label>
+                <input type="text" class="form-control" id="addCoursePrice" />
+                <div
+                  class="text-danger small mt-1"
+                  id="addCoursePriceError"
+                  style="display: none"
+                >
+                  Vui lòng nhập giá tiền!
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="addCourseImage" class="form-label">Hình ảnh</label>
+                <input type="text" class="form-control" id="addCourseImage" />
+                <div
+                  class="text-danger small mt-1"
+                  id="addCourseImageError"
+                  style="display: none"
+                >
+                  Vui lòng nhập URL!
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Đóng
+              </button>
+              <button
+                type="button"
+                class="btn btn-accent bounce"
+                id="addCourseBtn"
+                onclick="handleAddCourse()"
+              >
+                <span>Thêm</span>
+                <div
+                  class="spinner-border spinner-border-sm spinner"
+                  role="status"
+                ></div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal sửa khóa học -->
+      <div class="modal fade slide-in-right" id="editCourseModal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title fade-in">Sửa khóa học</h5>
+              <button
+                type="button"
+                class="btn-close fade-out"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div class="modal-body fade-in">
+              <input type="hidden" id="editCourseId" />
+              <div class="mb-3">
+                <label for="editCourseName" class="form-label"
+                  >Tên khóa học</label
+                >
+                <input type="text" class="form-control" id="editCourseName" />
+                <div
+                  class="text-danger small mt-1"
+                  id="editCourseNameError"
+                  style="display: none"
+                >
+                  Vui lòng nhập tên
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="editCourseInstructor" class="form-label"
+                  >Giảng Viên</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editCourseInstructor"
+                />
+                <div
+                  class="text-danger small mt-1"
+                  id="editCourseInstructorError"
+                  style="display: none"
+                >
+                  Vui lòng nhập giảng viên!
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="editCoursePrice" class="form-label">Giá tiền</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="editCoursePrice"
+                />
+                <div
+                  class="text-danger small mt-1"
+                  id="editCoursePriceError"
+                  style="display: none"
+                >
+                  Vui lòng nhập giá!
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="editCourseImage" class="form-label">Hình ảnh</label>
+                <input type="url" class="form-control" id="editCourseImage" />
+                <div
+                  class="text-danger small mt-1"
+                  id="editCourseImageError"
+                  style="display: none"
+                >
+                  Vui lòng nhập URL!
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Đóng
+              </button>
+              <button
+                type="button"
+                class="btn btn-accent bounce"
+                id="editCourseBtn"
+                onclick="handleEditCourse()"
+              >
+                <span>Lưu</span>
+                <div
+                  class="spinner-border spinner-border-sm spinner"
+                  role="status"
+                ></div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal xem chi tiết khóa học -->
+      <div class="modal fade slide-in-right" id="viewCourseModal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title fade-in">Chi tiết khóa học</h5>
+              <button
+                type="button"
+                class="btn-close fade-out"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div class="modal-body fade-in">
+              <p>
+                <strong>Tên khóa học:</strong><span id="viewCourseName"></span>
+              </p>
+              <p>
+                <strong>Giảng viên: </strong>
+                <span id="viewCourseInstructor"></span>
+              </p>
+              <p>
+                <strong>Giá tiền: </strong> <span id="viewCoursePrice"></span>
+              </p>
+              <p><strong>Hình ảnh: </strong></p>
+              <img
+                id="viewCourseImage"
+                class="img-fluid rounded fade-in"
+                alt=""
+              />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Đóng
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="theme.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
